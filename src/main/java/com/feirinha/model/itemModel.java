@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "itensTable")
-public class itemModel {
+public class ItemModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
