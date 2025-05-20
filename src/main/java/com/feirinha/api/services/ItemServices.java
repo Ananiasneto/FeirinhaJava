@@ -42,19 +42,24 @@ public class ItemServices{
         return itemRepository.save(newItem);
     }
 
-    public ItemModel update(Long id, ItemModel updatedItem) {
+public Optional<ItemModel> update(Long id, ItemDto updatedItem) {
     Optional<ItemModel> existingItemOptional = itemRepository.findById(id);
 
-    if (existingItemOptional.isPresent()) {
-        ItemModel existingItem = existingItemOptional.get();
-        existingItem.setName(updatedItem.getName());
-        existingItem.setQuantity(updatedItem.getQuantity());
-
-        return itemRepository.save(existingItem);
-    } else {
-        return null;
-        }
+    if (existingItemOptional.isEmpty()) {
+        return Optional.empty();
     }
+
+    Optional<ItemModel> itemOptional = itemRepository.findByName(updatedItem.getName());
+    if (itemOptional.isPresent() && !itemOptional.get().getId().equals(id)) {
+         return Optional.of(itemOptional.get());
+    }
+
+    ItemModel existingItem = existingItemOptional.get();
+    existingItem.setName(updatedItem.getName());
+    existingItem.setQuantity(updatedItem.getQuantity());
+
+    return Optional.of(itemRepository.save(existingItem));
+}
     public void delete(Long id) {
     ItemModel item = findById(id);
     if (item != null) {
