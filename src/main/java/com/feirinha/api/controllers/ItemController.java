@@ -70,7 +70,7 @@ public ResponseEntity<ItemModel> updateItem(@PathVariable("id") Long id, @Reques
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
-    return ResponseEntity.ok(updatedItem);
+    return ResponseEntity.status(HttpStatus.OK).body(updatedItem);
 }
 
 @DeleteMapping("/{id}")
