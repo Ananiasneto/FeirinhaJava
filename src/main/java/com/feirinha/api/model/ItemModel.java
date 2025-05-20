@@ -1,4 +1,4 @@
-package com.feirinha.model;
+package com.feirinha.api.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
